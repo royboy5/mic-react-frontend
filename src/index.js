@@ -2,13 +2,15 @@ import './styles/main.scss'
 
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Home from './pages/Home'
 
 const App = () => (
   <BrowserRouter>
-    <Route exact path='/' componrny={Home} />
+    <Switch>
+      <Route exact path='/' component={Home} />
+    </Switch>
   </BrowserRouter>
 )
 
