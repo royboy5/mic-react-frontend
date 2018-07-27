@@ -1,8 +1,15 @@
-import './index.css'
+import './styles/main.scss'
 
 import React from 'react'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-import App from './App'
+import Home from './pages/Home'
 
-render(<App/>, document.querySelector('#app'))
+const App = () => (
+  <BrowserRouter>
+    <Route exact path='/' componrny={Home} />
+  </BrowserRouter>
+)
+
+render(<App />, document.querySelector('#app'))
