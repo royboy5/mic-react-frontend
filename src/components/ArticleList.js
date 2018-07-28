@@ -12,47 +12,57 @@ class ArticleList extends Component {
     }
   }
 
-  async componentDidMount() {
-    const articles = await axios.get('/data/articles.json')
+  componentDidMount() {
+    this.init()
+  }
 
-    this.setState({
-      articles: articles.data
-    })
+  init = async () => {
+    try {
+      const res = await axios.get('/data/articles.json')
+      this.setState({
+        articles: res.data
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   loadMore = async () => {
     if (this.state.limit < this.state.articles.length) {
-      return this.setState(prevState => {
+      this.setState(prevState => {
         return {
           limit: prevState.limit + 10
         }
       })
     }
 
-    if (this.state.api.length !== 0) {
-      const apiUrl = this.state.api.shift()
-      const moreArticles = await axios.get(`/data/${apiUrl}`)
+    if (this.state.api.length) {
+      const apiArr = [...this.state.api]
+      const apiUrl = apiArr.shift()
+      const res = await axios.get(`/data/${apiUrl}`)
 
-      return this.setState(prevState => {
+      this.setState(prevState => {
         return {
           limit: prevState.limit + 10,
-          articles: [...prevState.articles, ...moreArticles.data],
-          api: prevState.api.slice(1)
+          articles: [...this.state.articles, ...res.data],
+          api: apiArr
         }
       })
     }
   }
 
   render() {
-    if (!this.state.articles) {
+    const { articles, limit } = this.state
+
+    if (!articles) {
       return <div>loading</div>
     }
 
     return (
       <div>
         <ul>
-          {this.state.articles
-            .slice(0, this.state.limit)
+          {articles
+            .slice(0, limit)
             .map(article => <ArticleItem key={article.id} data={article} />)}
         </ul>
         <button onClick={this.loadMore}>Load More</button>
