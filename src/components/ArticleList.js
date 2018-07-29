@@ -60,7 +60,16 @@ class ArticleList extends Component {
 
   handleSortChange = sortBy => {
     console.log('sort changed to', sortBy)
-    this.setState({ sortBy })
+    this.setState(prevState => {
+      if (
+        prevState.sortBy === SORT_TYPE.WORD_COUNT &&
+        sortBy === SORT_TYPE.WORD_COUNT
+      ) {
+        return { sortBy: SORT_TYPE.WORD_COUNT_REV }
+      }
+
+      return { sortBy }
+    })
   }
 
   sortedArticles = () => {
@@ -81,13 +90,11 @@ class ArticleList extends Component {
   }
 
   render() {
-    const { articles, limit, sortBy } = this.state
+    const { articles, limit } = this.state
 
     if (!articles) {
       return <div>loading</div>
     }
-
-    console.log(this.state, 'state')
 
     return (
       <div>
