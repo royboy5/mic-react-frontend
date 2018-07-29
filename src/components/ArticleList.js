@@ -15,12 +15,15 @@ class ArticleList extends Component {
     this.state = {
       limit: 10,
       api: ['more-articles.json'],
-      soryBy: SORT_TYPE.NONE
+      sortBy: SORT_TYPE.NONE
     }
   }
 
   componentDidMount() {
     this.init()
+
+    const sortType = localStorage.getItem('sortType')
+    sortType && this.setState({ sortBy: sortType })
   }
 
   init = async () => {
@@ -59,15 +62,17 @@ class ArticleList extends Component {
   }
 
   handleSortChange = sortBy => {
-    console.log('sort changed to', sortBy)
+    // console.log('sort changed to', sortBy)
     this.setState(prevState => {
       if (
         prevState.sortBy === SORT_TYPE.WORD_COUNT &&
         sortBy === SORT_TYPE.WORD_COUNT
       ) {
+        localStorage.setItem('sortType', SORT_TYPE.WORD_COUNT_REV)
         return { sortBy: SORT_TYPE.WORD_COUNT_REV }
       }
 
+      localStorage.setItem('sortType', sortBy)
       return { sortBy }
     })
   }
@@ -75,7 +80,9 @@ class ArticleList extends Component {
   sortedArticles = () => {
     const { sortBy, articles } = this.state
     let result = [...articles]
-    console.log('sortedarticles', sortBy, SORT_TYPE.WORD_COUNT)
+
+    // console.log('sortedarticles', sortBy, SORT_TYPE.WORD_COUNT)
+
     switch (parseInt(sortBy, 10)) {
       case SORT_TYPE.WORD_COUNT:
         return articles.sort(sortByWordCount)
@@ -91,6 +98,8 @@ class ArticleList extends Component {
 
   render() {
     const { articles, limit } = this.state
+
+    console.log(this.state, 'state')
 
     if (!articles) {
       return <div>loading</div>
