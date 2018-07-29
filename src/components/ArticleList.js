@@ -104,7 +104,7 @@ class ArticleList extends Component {
   render() {
     const { articles, limit } = this.state
 
-    console.log(this.state, 'state')
+    // console.log(this.state, 'state')
 
     if (!articles) {
       return <div>loading</div>
