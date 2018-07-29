@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
-import { Icon, Button } from '@blueprintjs/core'
-import { IconNames } from '@blueprintjs/icons'
+import { Button } from '@blueprintjs/core'
 
 import ArticleItem from './ArticleItem'
+import SortGroup from './SortGroup'
 import {
   SORT_TYPE,
   sortByWordCount,
   sortByWordCountRev,
-  sortBySubmitted
+  sortBySubmitted,
+  sortBySubmittedRev
 } from '../utils/sortBy'
 
 class ArticleList extends Component {
@@ -93,6 +93,8 @@ class ArticleList extends Component {
         return result.sort(sortByWordCountRev)
       case SORT_TYPE.SUBMITTED:
         return result.sort(sortBySubmitted)
+      case SORT_TYPE.SUBMITTED_REV:
+        return result.sort(sortBySubmittedRev)
       case SORT_TYPE.NONE:
       default:
         return result
@@ -109,47 +111,14 @@ class ArticleList extends Component {
     }
 
     return (
-      <div>
-        <Button
-          minimal
-          text="Words"
-          icon={<Icon icon={IconNames.ARROW_UP} iconSize={20} title={false} />}
-          onClick={() => this.handleSortChange(SORT_TYPE.WORD_COUNT)}
-        />
-        <Button
-          minimal
-          text="Words"
-          icon={
-            <Icon icon={IconNames.ARROW_DOWN} iconSize={20} title={false} />
-          }
-          onClick={() => this.handleSortChange(SORT_TYPE.WORD_COUNT_REV)}
-        />
-        <Button
-          minimal
-          text="Submitted"
-          icon={<Icon icon={IconNames.TIME} iconSize={20} title={false} />}
-          onClick={() => this.handleSortChange(SORT_TYPE.SUBMITTED)}
-        />
-        <table>
-          <thead>
-            <tr>
-              <th>Unpublished Articles</th>
-              <th>Author</th>
-              <th onClick={() => this.handleSortChange(SORT_TYPE.WORD_COUNT)}>
-                Words
-              </th>
-              <th onClick={() => this.handleSortChange(SORT_TYPE.SUBMITTED)}>
-                Submitted
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.sortedArticles()
-              .slice(0, limit)
-              .map(article => <ArticleItem key={article.id} data={article} />)}
-          </tbody>
-        </table>
-        <button onClick={this.loadMore}>Load More</button>
+      <div className="articles">
+        <SortGroup handleSortChange={this.handleSortChange} />
+        <div className="cards">
+          {this.sortedArticles()
+            .slice(0, limit)
+            .map(article => <ArticleItem key={article.id} data={article} />)}
+        </div>
+        <Button onClick={this.loadMore}>Load More</Button>
       </div>
     )
   }

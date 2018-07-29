@@ -2,7 +2,8 @@ export const SORT_TYPE = {
   NONE: 0,
   WORD_COUNT: 1,
   WORD_COUNT_REV: 2,
-  SUBMITTED: 3
+  SUBMITTED: 3,
+  SUBMITTED_REV: 4
 }
 
 export const sortByWordCount = (a, b) => {
@@ -21,6 +22,17 @@ export const sortBySubmitted = (a, b) => {
     return 1
   }
   if (a.publish_at < b.publish_at) {
+    return -1
+  }
+  return 0
+}
+
+export const sortBySubmittedRev = (a, b) => {
+  //   console.log('sortBySubmittedRev', a.publish_at, b.publish_at)
+  if (a.publish_at < b.publish_at) {
+    return 1
+  }
+  if (a.publish_at > b.publish_at) {
     return -1
   }
   return 0

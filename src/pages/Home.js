@@ -5,7 +5,7 @@ import ArticleList from '../components/ArticleList'
 class Home extends Component {
   render () {
     return (
-      <div className='App'>
+      <div className='home'>
         <ArticleList />
       </div>
     )
