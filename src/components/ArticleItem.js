@@ -6,12 +6,14 @@ import { Card, Elevation } from '@blueprintjs/core'
 const ArticleItem = props => {
   return (
     <Card elevation={Elevation.FOUR}>
-      <figure>
-        <img src={props.data.image} />
-        <figcaption>
-          <a href={props.data.url}>{props.data.title}</a>
-        </figcaption>
-      </figure>
+      <a href={props.data.url}>
+        <figure>
+          <img src={props.data.image} />
+          <figcaption>
+            <span>{props.data.title}</span>
+          </figcaption>
+        </figure>
+      </a>
       <h5>
         {props.data.profile.first_name} {props.data.profile.last_name}
       </h5>

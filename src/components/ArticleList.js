@@ -118,7 +118,14 @@ class ArticleList extends Component {
             .slice(0, limit)
             .map(article => <ArticleItem key={article.id} data={article} />)}
         </div>
-        <Button onClick={this.loadMore}>Load More</Button>
+        <Button
+          className="articles__load"
+          minimal
+          large
+          onClick={this.loadMore}
+        >
+          Load More
+        </Button>
       </div>
     )
   }

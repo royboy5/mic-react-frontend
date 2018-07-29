@@ -3,5 +3,14 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
+    &__load {
+      background-color: $PrimaryLight;
+
+      &:hover {
+        color: $PrimaryLight;
+        background-color: #3a3f41;
+      }
+    }
   }
 }

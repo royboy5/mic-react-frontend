@@ -7,7 +7,7 @@ import { SORT_TYPE } from '../utils/sortBy'
 
 const SortGroup = props => {
   return (
-    <ButtonGroup className='sort-group'>
+    <ButtonGroup minimal className='sort-group'>
       <Button
         minimal
         text='Words'

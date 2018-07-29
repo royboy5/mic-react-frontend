@@ -1,0 +1,10 @@
+.articles {
+  padding: 5rem 0;
+  color: $PrimaryDark;
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
