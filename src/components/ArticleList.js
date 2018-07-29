@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+import { Icon, Button } from '@blueprintjs/core'
+import { IconNames } from '@blueprintjs/icons'
+
 import ArticleItem from './ArticleItem'
 import {
   SORT_TYPE,
@@ -85,14 +88,14 @@ class ArticleList extends Component {
 
     switch (parseInt(sortBy, 10)) {
       case SORT_TYPE.WORD_COUNT:
-        return articles.sort(sortByWordCount)
+        return result.sort(sortByWordCount)
       case SORT_TYPE.WORD_COUNT_REV:
-        return articles.sort(sortByWordCountRev)
+        return result.sort(sortByWordCountRev)
       case SORT_TYPE.SUBMITTED:
-        return articles.sort(sortBySubmitted)
+        return result.sort(sortBySubmitted)
       case SORT_TYPE.NONE:
       default:
-        return articles
+        return result
     }
   }
 
@@ -107,6 +110,26 @@ class ArticleList extends Component {
 
     return (
       <div>
+        <Button
+          minimal
+          text="Words"
+          icon={<Icon icon={IconNames.ARROW_UP} iconSize={20} title={false} />}
+          onClick={() => this.handleSortChange(SORT_TYPE.WORD_COUNT)}
+        />
+        <Button
+          minimal
+          text="Words"
+          icon={
+            <Icon icon={IconNames.ARROW_DOWN} iconSize={20} title={false} />
+          }
+          onClick={() => this.handleSortChange(SORT_TYPE.WORD_COUNT_REV)}
+        />
+        <Button
+          minimal
+          text="Submitted"
+          icon={<Icon icon={IconNames.TIME} iconSize={20} title={false} />}
+          onClick={() => this.handleSortChange(SORT_TYPE.SUBMITTED)}
+        />
         <table>
           <thead>
             <tr>

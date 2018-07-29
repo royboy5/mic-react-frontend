@@ -12,6 +12,8 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.0.1",
+    "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1"

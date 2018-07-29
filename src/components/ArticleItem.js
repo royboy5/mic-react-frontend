@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import moment from 'moment'
+
 const ArticleItem = props => {
   return (
     <tr>
@@ -9,7 +11,7 @@ const ArticleItem = props => {
         {props.data.profile.first_name} {props.data.profile.last_name}
       </td>
       <td>{props.data.words}</td>
-      <td>{props.data.publish_at}</td>
+      <td>{moment(props.data.publish_at).fromNow()}</td>
     </tr>
   )
 }
