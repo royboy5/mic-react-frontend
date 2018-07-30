@@ -24,12 +24,12 @@ class ArticleList extends Component {
 
   componentDidMount() {
     this.init()
-
-    const sortType = localStorage.getItem('sortType')
-    sortType && this.setState({ sortBy: sortType })
   }
 
   init = async () => {
+    const sortType = localStorage.getItem('sortType')
+    sortType && this.setState({ sortBy: sortType })
+    
     try {
       const res = await axios.get('/data/articles.json')
       this.setState({
@@ -67,14 +67,6 @@ class ArticleList extends Component {
   handleSortChange = sortBy => {
     // console.log('sort changed to', sortBy)
     this.setState(prevState => {
-      if (
-        prevState.sortBy === SORT_TYPE.WORD_COUNT &&
-        sortBy === SORT_TYPE.WORD_COUNT
-      ) {
-        localStorage.setItem('sortType', SORT_TYPE.WORD_COUNT_REV)
-        return { sortBy: SORT_TYPE.WORD_COUNT_REV }
-      }
-
       localStorage.setItem('sortType', sortBy)
       return { sortBy }
     })
